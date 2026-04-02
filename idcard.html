@@ -452,11 +452,23 @@
             });
             const backImg = backCanvas.toDataURL('image/jpeg', 1.0);
 
-            const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [842, 595] });
-            const cw = 250; const ch = 390; const margin = 40;
+            // Real-life ID Card dimensions printed on A4
+            const pdf = new jsPDF({ orientation: 'landscape', unit: 'in', format: 'a4' });
+            
+            // Map the DOM ratio (320x500) to the physical width constraint (3.5 inches)
+            // Height = (500 / 320) * 3.5 = 5.46875 inches
+            const cw = 3.5; 
+            const ch = 5.47; 
+            const marginX = 1.0; 
+            const marginY = 1.0; 
+            const gap = 0.5;
 
-            pdf.addImage(frontImg, 'JPEG', margin, margin, cw, ch);
-            pdf.addImage(backImg, 'JPEG', margin + cw + margin, margin, cw, ch);
+            // Draw Front Image at calculated aspect ratio
+            pdf.addImage(frontImg, 'JPEG', marginX, marginY, cw, ch);
+            
+            // Draw Back Image at calculated aspect ratio
+            pdf.addImage(backImg, 'JPEG', marginX + cw + gap, marginY, cw, ch);
+            
             pdf.save(`${filename}.pdf`);
 
         } catch (error) {
