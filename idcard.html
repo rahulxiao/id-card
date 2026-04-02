@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern ID Card Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- html2pdf.js and html2canvas scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #f59e0b;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --radius-xl: 24px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-main);
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 60px; }
+
+    header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #4f46e5, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .actions-top {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-edit { background: white; color: var(--text-main); border: 1px solid #e2e8f0; }
+    .btn-download { background: var(--primary); color: white; box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2); }
+    
+    .btn-small { 
+        padding: 10px 20px; 
+        font-size: 0.85rem; 
+        margin-top: 15px;
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 60px;
+      justify-items: center;
+    }
+
+    /* ID Card Styling */
+    .id-wrapper { perspective: 1000px; padding-bottom: 20px; text-align: center; }
+    .id-card { width: 320px; height: 500px; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+    .id-wrapper:hover .id-card { transform: rotateY(180deg); }
+    .id-side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-xl); background: white; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+    .id-back { transform: rotateY(180deg); }
+
+    /* Theme Styles */
+    .theme-blue { --theme-color: #1e40af; --theme-accent: #3b82f6; --theme-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+    .theme-dark { --theme-color: #0f172a; --theme-accent: #64748b; --theme-gradient: linear-gradient(135deg, #0f172a, #334155); }
+    .theme-green { --theme-color: #064e3b; --theme-accent: #10b981; --theme-gradient: linear-gradient(135deg, #064e3b, #10b981); }
+
+    /* Card Components */
+    .card-header { background: var(--theme-gradient); padding: 30px; text-align: center; position: relative; clip-path: ellipse(150% 100% at 50% 0%); padding-bottom: 60px; }
+    .school-logo { width: 60px; height: 60px; background: white; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; }
+    .school-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .school-name { color: white; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .id-number { position: absolute; top: 15px; right: 15px; color: rgba(255, 255, 255, 0.6); font-size: 0.7rem; font-weight: 600; }
+    .profile-section { margin-top: -50px; text-align: center; z-index: 10; position: relative; }
+    .profile-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; background: #f1f5f9; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); overflow: hidden; }
+    .profile-img img { width: 100%; height: 100%; object-fit: cover; }
+    .user-name { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
+    .user-role { font-size: 0.85rem; color: var(--theme-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    .card-body { padding: 20px; flex-grow: 1; }
+    .info-list { list-style: none; }
+    .info-item { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; }
+    .info-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .info-value { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+    .card-footer { background: #f8fafc; padding: 15px; text-align: center; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid #f1f5f9; }
+    
+    /* Back Details */
+    .back-header { padding: 25px; border-bottom: 1px solid #f1f5f9; text-align: center; background: white; }
+    .back-title { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--theme-color); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+    .back-body { padding: 30px 24px; font-size: 0.8rem; line-height: 1.6; color: var(--text-muted); flex-grow: 1; text-align: left; }
+    .back-body p { margin-bottom: 15px; }
+    
+    /* Signature Area */
+    .sign-section { margin-top: auto; padding: 20px 24px; text-align: center; position: relative; }
+    .sign-img { width: 120px; height: 50px; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .sign-img img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1) contrast(1.2); }
+    .sign-line { width: 150px; height: 1px; background: #e2e8f0; margin: 0 auto 8px; }
+    .sign-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    .theme-tag { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; display: block; }
+
+    /* PDF Specific Hidden Container */
+    #pdf-source { 
+        position: absolute; 
+        left: -9999px; 
+        top: -9999px; 
+        width: 1200px;
+        background: white; 
+    }
+    .pdf-image-container {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 30px !important;
+        padding: 40px !important;
+        background: white !important;
+    }
+    .pdf-shot {
+        width: 320px !important;
+        height: 500px !important;
+        border: 1px solid #eee;
+        border-radius: 24px !important;
+        box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Modern Identity</h1>
+      <div class="actions-top">
+          <a href="form.html" class="btn btn-edit">Edit Details</a>
+      </div>
+    </header>
+
+    <div class="grid" id="main-grid">
+      
+      <!-- Theme 1: Professional Blue -->
+      <div class="id-wrapper">
+        <div class="id-card theme-blue" id="card-blue">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header">
+              <div class="school-logo">🏫</div>
+              <div class="school-name">School Name</div>
+            </div>
+            <div class="profile-section">
+              <div class="profile-img">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="user-name">Full Name</div>
+              <div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">ID Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Identity Details</div></div>
+            <div class="back-body">
+              <p class="val-terms">Terms and instructions loaded here...</p>
+              <p><strong>Address:</strong> <span class="val-address">Street details...</span></p>
+              <p><strong>Email:</strong> <span class="val-email-back">contact@org.com</span></p>
+            </div>
+            <div class="sign-section">
+                <div class="sign-img val-sign-img"></div>
+                <div class="sign-line"></div>
+                <div class="sign-label">Authorized Signature</div>
+            </div>
+            <div class="card-footer">Official ID Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Professional Blue</span>
+        <button onclick="exportToPDF('card-blue', 'Professional_Blue_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+      </div>
+
+      <!-- Theme 2: Minimalist Dark -->
+      <div class="id-wrapper">
+        <div class="id-card theme-dark" id="card-dark">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header">
+              <div class="school-logo">🏢</div>
+              <div class="school-name">School Name</div>
+            </div>
+            <div class="profile-section">
+              <div class="profile-img">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="user-name">Full Name</div>
+              <div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">ID Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Identity Details</div></div>
+            <div class="back-body">
+              <p class="val-terms">Terms and instructions loaded here...</p>
+              <p><strong>Email:</strong> <span class="val-email-back">contact@org.com</span></p>
+              <p><strong>Location:</strong> <span class="val-address">Street details...</span></p>
+            </div>
+            <div class="sign-section">
+                <div class="sign-img val-sign-img"></div>
+                <div class="sign-line"></div>
+                <div class="sign-label">Holder's Signature</div>
+            </div>
+            <div class="card-footer">Secure Identity</div>
+          </div>
+        </div>
+        <span class="theme-tag">Minimalist Slate</span>
+        <button onclick="exportToPDF('card-dark', 'Minimalist_Dark_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+      </div>
+
+      <!-- Theme 3: Emerald Growth -->
+      <div class="id-wrapper">
+        <div class="id-card theme-green" id="card-green">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header">
+              <div class="school-logo">🍃</div>
+              <div class="school-name">School Name</div>
+            </div>
+            <div class="profile-section">
+              <div class="profile-img">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="user-name">Full Name</div>
+              <div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">ID Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Identity Details</div></div>
+            <div class="back-body">
+              <p class="val-terms">Terms and instructions loaded here...</p>
+              <p><strong>Primary Contact:</strong> <span class="val-phone">000</span></p>
+              <p><strong>Blood Group:</strong> <span class="val-blood">?</span></p>
+              <p><strong>Address:</strong> <span class="val-address">Street details...</span></p>
+            </div>
+            <div class="sign-section">
+                <div class="sign-img val-sign-img"></div>
+                <div class="sign-line"></div>
+                <div class="sign-label">Verification Sign</div>
+            </div>
+            <div class="card-footer">Identity Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Emerald Growth</span>
+        <button onclick="exportToPDF('card-green', 'Emerald_Growth_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="pdf-source"></div>
+
+  <script>
+    function populateFields() {
+        const raw = localStorage.getItem('idCardData');
+        if (!raw) { window.location.href = 'form.html'; return; }
+        const data = JSON.parse(raw);
+
+        document.querySelectorAll('.school-name').forEach(el => el.innerText = data.schoolName);
+        document.querySelectorAll('.user-name').forEach(el => el.innerText = data.fullName);
+        document.querySelectorAll('.user-role').forEach(el => el.innerText = data.role);
+        document.querySelectorAll('.val-id').forEach(el => el.innerText = data.indexNumber);
+        document.querySelectorAll('.val-blood').forEach(el => el.innerText = data.bloodGroup);
+        document.querySelectorAll('.val-phone').forEach(el => el.innerText = data.phone);
+        document.querySelectorAll('.val-terms').forEach(el => el.innerText = data.terms);
+        document.querySelectorAll('.val-address').forEach(el => el.innerText = data.address);
+        document.querySelectorAll('.val-valid').forEach(el => el.innerText = data.validity);
+        document.querySelectorAll('.val-email-front').forEach(el => el.innerText = data.memberEmail);
+        document.querySelectorAll('.val-email-back').forEach(el => el.innerText = data.email);
+
+        if (data.logo) {
+            document.querySelectorAll('.school-logo').forEach(el => { el.innerHTML = `<img src="${data.logo}" alt="Logo">`; });
+        }
+        if (data.photo) {
+            document.querySelectorAll('.profile-img').forEach(el => { el.innerHTML = `<img src="${data.photo}" alt="Photo">`; });
+        }
+        if (data.signature) {
+            document.querySelectorAll('.val-sign-img').forEach(el => { el.innerHTML = `<img src="${data.signature}" alt="Signature">`; });
+        }
+    }
+
+    async function exportToPDF(cardId, filename) {
+        const originalCard = document.getElementById(cardId);
+        const frontSide = originalCard.querySelector('.id-front');
+        const backSide = originalCard.querySelector('.id-back');
+        const source = document.getElementById('pdf-source');
+        
+        const btn = originalCard.parentElement.querySelector('.btn-download');
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        try {
+            // STEP 1: Screenshot FRONT
+            // We use a high scale to ensure crispness
+            const frontCanvas = await html2canvas(frontSide, { scale: 3, useCORS: true, backgroundColor: null });
+            const frontImgData = frontCanvas.toDataURL('image/jpeg', 1.0);
+
+            // STEP 2: Screenshot BACK
+            // Note: Since back is flipped via CSS rotateY(180deg), html2canvas might struggle.
+            // We temporarily force the back side to be flat for the screenshot.
+            const backCanvas = await html2canvas(backSide, { 
+                scale: 3, 
+                useCORS: true, 
+                backgroundColor: null,
+                onclone: (clonedDoc) => {
+                    const clonedBack = clonedDoc.querySelector(`#${cardId} .id-back`);
+                    clonedBack.style.transform = 'none';
+                    clonedBack.style.backfaceVisibility = 'visible';
+                    clonedBack.style.position = 'static';
+                }
+            });
+            const backImgData = backCanvas.toDataURL('image/jpeg', 1.0);
+
+            // STEP 3: Create Container for PDF with IMAGES
+            source.innerHTML = '';
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'pdf-image-container';
+            
+            const frontImg = document.createElement('img');
+            frontImg.src = frontImgData;
+            frontImg.className = 'pdf-shot';
+            
+            const backImg = document.createElement('img');
+            backImg.src = backImgData;
+            backImg.className = 'pdf-shot';
+            
+            imgContainer.appendChild(frontImg);
+            imgContainer.appendChild(backImg);
+            source.appendChild(imgContainer);
+
+            // STEP 4: Generate PDF from the IMAGES
+            const opt = {
+                margin: 0,
+                filename: `${filename}.pdf`,
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 1 }, // Already high quality images
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+            };
+
+            await html2pdf().set(opt).from(source).save();
+        } catch (error) {
+            console.error("PDF export error:", error);
+            alert("Export failed. Please ensure all images are loaded.");
+        } finally {
+            btn.innerText = "Download High-Quality PDF";
+            btn.disabled = false;
+            source.innerHTML = '';
+        }
+    }
+
+    document.querySelectorAll('.id-card').forEach(card => {
+        card.addEventListener('click', () => {
+            card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        });
+    });
+
+    populateFields();
+  </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card Generator - Entry Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --input-border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .form-container {
+            background: var(--card);
+            width: 100%;
+            max-width: 650px;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 { font-weight: 800; margin-bottom: 30px; text-align: center; color: var(--primary); font-size: 1.8rem; }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid #f1f5f9;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--input-border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+            background: #fbfcfe;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .upload-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1.5px dashed #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -3px rgba(99, 102, 241, 0.4); }
+
+        .hint { font-size: 0.65rem; color: #94a3b8; margin-top: 5px; font-weight: 500; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>ID Card Generator</h2>
+        <form id="idForm">
+            <!-- Front Side Details -->
+            <div class="section-title">Front Side Details</div>
+            
+            <div class="form-group">
+                <label for="schoolName">School / Organization Name</label>
+                <input type="text" id="schoolName" placeholder="e.g. Green Valley High School" required>
+            </div>
+
+            <div class="upload-section">
+                <div class="form-group">
+                    <label for="schoolLogo">School Logo</label>
+                    <input type="file" id="schoolLogo" accept="image/*">
+                    <div class="hint">Logo icon</div>
+                </div>
+                <div class="form-group">
+                    <label for="profilePhoto">Profile Photo</label>
+                    <input type="file" id="profilePhoto" accept="image/*">
+                    <div class="hint">Student photo</div>
+                </div>
+                <div class="form-group">
+                    <label for="signature">Signature</label>
+                    <input type="file" id="signature" accept="image/*">
+                    <div class="hint">Handwritten sign</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Rahul Biswas" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Position / Role</label>
+                    <input type="text" id="role" placeholder="Senior Student" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="indexNumber">ID / Index Number</label>
+                    <input type="text" id="indexNumber" placeholder="TCH-2026-0456" required>
+                </div>
+                <div class="form-group">
+                    <label for="bloodGroup">Blood Group</label>
+                    <select id="bloodGroup" required>
+                        <option value="">Select Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="memberEmail">Member E-mail</label>
+                <input type="email" id="memberEmail" placeholder="rahul@example.com" required>
+            </div>
+
+            <!-- Back Side Details -->
+            <div class="section-title">Back Side Details</div>
+
+            <div class="form-group">
+                <label for="terms">Terms & Instructions</label>
+                <textarea id="terms" rows="2" placeholder="This card confirms the holder's identity..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Postal Address</label>
+                <input type="text" id="address" placeholder="123 School Road, Dhaka, Bangladesh">
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="phone">Contact Number</label>
+                    <input type="tel" id="phone" placeholder="+880 1712-345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="validity">Valid Thru</label>
+                    <input type="text" id="validity" placeholder="June 2026">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Organization Email</label>
+                <input type="email" id="email" placeholder="info@school.edu">
+            </div>
+
+            <button type="submit">Generate Professional ID</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('idForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const logoFile = document.getElementById('schoolLogo').files[0];
+            const photoFile = document.getElementById('profilePhoto').files[0];
+            const signFile = document.getElementById('signature').files[0];
+            
+            let logoUrl = '';
+            let photoUrl = '';
+            let signUrl = '';
+
+            if (logoFile) logoUrl = await toBase64(logoFile);
+            if (photoFile) photoUrl = await toBase64(photoFile);
+            if (signFile) signUrl = await toBase64(signFile);
+
+            const data = {
+                // Front
+                schoolName: document.getElementById('schoolName').value,
+                fullName: document.getElementById('fullName').value,
+                role: document.getElementById('role').value,
+                indexNumber: document.getElementById('indexNumber').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                memberEmail: document.getElementById('memberEmail').value,
+                logo: logoUrl,
+                photo: photoUrl,
+                
+                // Back
+                signature: signUrl,
+                terms: document.getElementById('terms').value || "This card represents official membership and must be returned if found.",
+                address: document.getElementById('address').value || "123 School Road, Dhaka, Bangladesh",
+                phone: document.getElementById('phone').value,
+                validity: document.getElementById('validity').value || "December 2026",
+                email: document.getElementById('email').value || "info@school.edu"
+            };
+
+            localStorage.setItem('idCardData', JSON.stringify(data));
+            window.location.href = 'idcard.html';
+        });
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    </script>
+</body>
+</html>
