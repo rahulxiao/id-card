@@ -23,7 +23,6 @@
       --text-muted: #64748b;
       --radius-xl: 24px;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -6px rgba(0, 0, 0, 0.1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,41 +100,45 @@
     .theme-blue { --theme-color: #1e40af; --theme-accent: #3b82f6; --theme-gradient: linear-gradient(135deg, #1e3a8a, #3b82f6); }
     .theme-dark { --theme-color: #0f172a; --theme-accent: #64748b; --theme-gradient: linear-gradient(135deg, #0f172a, #334155); }
     .theme-green { --theme-color: #064e3b; --theme-accent: #10b981; --theme-gradient: linear-gradient(135deg, #064e3b, #10b981); }
+    .theme-orange { --theme-color: #c2410c; --theme-accent: #f97316; --theme-gradient: linear-gradient(135deg, #c2410c, #f97316); }
+    .theme-purple { --theme-color: #6d28d9; --theme-accent: #a78bfa; --theme-gradient: linear-gradient(135deg, #6d28d9, #a78bfa); }
+    .theme-gold { --theme-color: #854d0e; --theme-accent: #eab308; --theme-gradient: linear-gradient(135deg, #1e293b, #854d0e); }
+    .theme-berry { --theme-color: #be123c; --theme-accent: #fb7185; --theme-gradient: linear-gradient(135deg, #be123c, #fb7185); }
 
     /* Card Components */
-    .card-header { background: var(--theme-gradient); padding: 30px; text-align: center; position: relative; clip-path: ellipse(150% 100% at 50% 0%); padding-bottom: 60px; }
-    .school-logo { width: 60px; height: 60px; background: white; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; }
+    .card-header { background: var(--theme-gradient); padding: 25px; text-align: center; position: relative; clip-path: ellipse(150% 100% at 50% 0%); padding-bottom: 50px; }
+    .school-logo { width: 55px; height: 55px; background: white; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; }
     .school-logo img { width: 100%; height: 100%; object-fit: contain; }
-    .school-name { color: white; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .school-name { color: white; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; width: 100%; white-space: normal; line-height: 1.3; margin: 0 auto; padding: 0 10px; }
     .id-number { position: absolute; top: 15px; right: 15px; color: rgba(255, 255, 255, 0.6); font-size: 0.7rem; font-weight: 600; }
-    .profile-section { margin-top: -50px; text-align: center; z-index: 10; position: relative; }
-    .profile-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; background: #f1f5f9; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); overflow: hidden; }
+    .profile-section { margin-top: -45px; text-align: center; z-index: 10; position: relative; }
+    .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; background: #f1f5f9; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); overflow: hidden; }
     .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-    .user-name { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
-    .user-role { font-size: 0.85rem; color: var(--theme-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-    .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .user-name { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+    .user-role { font-size: 0.8rem; color: var(--theme-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    
+    .card-body { padding: 15px 20px; flex: 1; display: flex; flex-direction: column; }
     .info-list { list-style: none; }
-    .info-item { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; }
-    .info-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
-    .info-value { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
-    .card-footer { background: #f8fafc; padding: 15px; text-align: center; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid #f1f5f9; margin-top: auto; }
+    .info-item { display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #f1f5f9; }
+    .info-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .info-value { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
+    
+    .card-footer { background: #f8fafc; padding: 12px; text-align: center; font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid #f1f5f9; margin-top: auto; }
     
     /* Back Details */
-    .back-header { padding: 25px; border-bottom: 1px solid #f1f5f9; text-align: center; background: white; }
-    .back-title { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--theme-color); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-    .back-body { padding: 30px 24px; font-size: 0.8rem; line-height: 1.6; color: var(--text-muted); flex-grow: 1; text-align: left; }
-    .back-body p { margin-bottom: 15px; }
+    .back-header { padding: 20px; border-bottom: 1px solid #f1f5f9; text-align: center; background: white; }
+    .back-title { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--theme-color); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+    .back-body { padding: 20px; font-size: 0.75rem; line-height: 1.5; color: var(--text-muted); flex: 1; text-align: left; }
+    .back-body p { margin-bottom: 10px; }
     
     /* Signature Area */
-    .sign-section { margin-top: auto; padding: 20px 24px; text-align: center; position: relative; }
-    .sign-img { width: 120px; height: 50px; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .sign-section { margin-top: auto; padding: 15px 20px; text-align: center; position: relative; }
+    .sign-img { width: 100px; height: 40px; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .sign-img img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1) contrast(1.2); }
-    .sign-line { width: 150px; height: 1px; background: #e2e8f0; margin: 0 auto 8px; }
-    .sign-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .sign-line { width: 130px; height: 1px; background: #e2e8f0; margin: 0 auto 5px; }
+    .sign-label { font-size: 0.6rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
     .theme-tag { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; display: block; }
-
-    /* Hidden utilities */
     #pdf-source { position: absolute; left: -9999px; top: -9999px; }
   </style>
 </head>
@@ -156,22 +159,16 @@
         <div class="id-card theme-blue" id="card-blue">
           <div class="id-side id-front">
             <div class="id-number val-id">REF-000</div>
-            <div class="card-header">
-              <div class="school-logo">🏫</div>
-              <div class="school-name">School Name</div>
-            </div>
+            <div class="card-header"><div class="school-logo">🏫</div><div class="school-name">School Name</div></div>
             <div class="profile-section">
-              <div class="profile-img">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              </div>
-              <div class="user-name">Full Name</div>
-              <div class="user-role">Role</div>
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
             </div>
             <div class="card-body">
               <ul class="info-list">
                 <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
                 <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
-                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
                 <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
               </ul>
             </div>
@@ -180,20 +177,16 @@
           <div class="id-side id-back">
             <div class="back-header"><div class="back-title">Identity Details</div></div>
             <div class="back-body">
-              <p class="val-terms">Terms and instructions loaded here...</p>
-              <p><strong>Address:</strong> <span class="val-address">Street details...</span></p>
-              <p><strong>Email:</strong> <span class="val-email-back">contact@org.com</span></p>
+                <p class="val-terms">Terms loaded here...</p>
+                <p><strong>Address:</strong> <span class="val-address">Street...</span></p>
+                <p><strong>Email:</strong> <span class="val-email-back">org@mail.com</span></p>
             </div>
-            <div class="sign-section">
-                <div class="sign-img val-sign-img"></div>
-                <div class="sign-line"></div>
-                <div class="sign-label">Authorized Signature</div>
-            </div>
-            <div class="card-footer">Official ID Card</div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Authorized Sign</div></div>
+            <div class="card-footer">Identity Card</div>
           </div>
         </div>
         <span class="theme-tag">Professional Blue</span>
-        <button onclick="exportDesignToPDF('card-blue', 'Professional_Blue_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+        <button onclick="exportDesignToPDF('card-blue', 'Professional_Blue')" class="btn btn-download btn-small">Download</button>
       </div>
 
       <!-- Theme 2: Minimalist Dark -->
@@ -201,22 +194,16 @@
         <div class="id-card theme-dark" id="card-dark">
           <div class="id-side id-front">
             <div class="id-number val-id">REF-000</div>
-            <div class="card-header">
-              <div class="school-logo">🏢</div>
-              <div class="school-name">School Name</div>
-            </div>
+            <div class="card-header"><div class="school-logo">🏢</div><div class="school-name">School Name</div></div>
             <div class="profile-section">
-              <div class="profile-img">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              </div>
-              <div class="user-name">Full Name</div>
-              <div class="user-role">Role</div>
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
             </div>
             <div class="card-body">
               <ul class="info-list">
                 <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
                 <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
-                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
                 <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
               </ul>
             </div>
@@ -225,20 +212,16 @@
           <div class="id-side id-back">
             <div class="back-header"><div class="back-title">Identity Details</div></div>
             <div class="back-body">
-              <p class="val-terms">Terms and instructions loaded here...</p>
-              <p><strong>Email:</strong> <span class="val-email-back">contact@org.com</span></p>
-              <p><strong>Location:</strong> <span class="val-address">Street details...</span></p>
+                <p class="val-terms">Terms loaded here...</p>
+                <p><strong>Email:</strong> <span class="val-email-back">org@mail.com</span></p>
+                <p><strong>Location:</strong> <span class="val-address">Street...</span></p>
             </div>
-            <div class="sign-section">
-                <div class="sign-img val-sign-img"></div>
-                <div class="sign-line"></div>
-                <div class="sign-label">Holder's Signature</div>
-            </div>
-            <div class="card-footer">Secure Identity</div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Holder Sign</div></div>
+            <div class="card-footer">Identity Card</div>
           </div>
         </div>
         <span class="theme-tag">Minimalist Slate</span>
-        <button onclick="exportDesignToPDF('card-dark', 'Minimalist_Dark_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+        <button onclick="exportDesignToPDF('card-dark', 'Minimalist_Dark')" class="btn btn-download btn-small">Download</button>
       </div>
 
       <!-- Theme 3: Emerald Growth -->
@@ -246,22 +229,16 @@
         <div class="id-card theme-green" id="card-green">
           <div class="id-side id-front">
             <div class="id-number val-id">REF-000</div>
-            <div class="card-header">
-              <div class="school-logo">🍃</div>
-              <div class="school-name">School Name</div>
-            </div>
+            <div class="card-header"><div class="school-logo">🍃</div><div class="school-name">School Name</div></div>
             <div class="profile-section">
-              <div class="profile-img">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-              </div>
-              <div class="user-name">Full Name</div>
-              <div class="user-role">Role</div>
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
             </div>
             <div class="card-body">
               <ul class="info-list">
                 <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
                 <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
-                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.75rem;">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
                 <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
               </ul>
             </div>
@@ -270,21 +247,156 @@
           <div class="id-side id-back">
             <div class="back-header"><div class="back-title">Identity Details</div></div>
             <div class="back-body">
-              <p class="val-terms">Terms and instructions loaded here...</p>
-              <p><strong>Primary Contact:</strong> <span class="val-phone">000</span></p>
-              <p><strong>Blood Group:</strong> <span class="val-blood">?</span></p>
-              <p><strong>Address:</strong> <span class="val-address">Street details...</span></p>
+                <p class="val-terms">Terms loaded here...</p>
+                <p><strong>Contact:</strong> <span class="val-phone">000</span></p>
+                <p><strong>Address:</strong> <span class="val-address">Street...</span></p>
             </div>
-            <div class="sign-section">
-                <div class="sign-img val-sign-img"></div>
-                <div class="sign-line"></div>
-                <div class="sign-label">Verification Sign</div>
-            </div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Verification Sign</div></div>
             <div class="card-footer">Identity Card</div>
           </div>
         </div>
         <span class="theme-tag">Emerald Growth</span>
-        <button onclick="exportDesignToPDF('card-green', 'Emerald_Growth_ID')" class="btn btn-download btn-small">Download High-Quality PDF</button>
+        <button onclick="exportDesignToPDF('card-green', 'Emerald_Growth')" class="btn btn-download btn-small">Download</button>
+      </div>
+
+      <!-- Theme 4: Sunset Flare -->
+      <div class="id-wrapper">
+        <div class="id-card theme-orange" id="card-orange">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header"><div class="school-logo">🔥</div><div class="school-name">School Name</div></div>
+            <div class="profile-section">
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Vibrant Identity</div></div>
+            <div class="back-body">
+                <p class="val-terms">Vibrant terms loaded...</p>
+                <p><strong>Support:</strong> <span class="val-phone">000</span></p>
+                <p><strong>Email:</strong> <span class="val-email-back">org@mail.com</span></p>
+            </div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Authorized Sign</div></div>
+            <div class="card-footer">Identity Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Sunset Flare</span>
+        <button onclick="exportDesignToPDF('card-orange', 'Sunset_Flare')" class="btn btn-download btn-small">Download</button>
+      </div>
+
+      <!-- Theme 5: Midnight Royal -->
+      <div class="id-wrapper">
+        <div class="id-card theme-purple" id="card-purple">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header"><div class="school-logo">✨</div><div class="school-name">School Name</div></div>
+            <div class="profile-section">
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Premium Access</div></div>
+            <div class="back-body">
+                <p class="val-terms">Royal terms loaded...</p>
+                <p><strong>Email:</strong> <span class="val-email-back">org@mail.com</span></p>
+                <p><strong>Address:</strong> <span class="val-address">Street...</span></p>
+            </div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Royal Seal Sign</div></div>
+            <div class="card-footer">Identity Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Midnight Royal</span>
+        <button onclick="exportDesignToPDF('card-purple', 'Midnight_Royal')" class="btn btn-download btn-small">Download</button>
+      </div>
+
+      <!-- Theme 6: Modern Gold -->
+      <div class="id-wrapper">
+        <div class="id-card theme-gold" id="card-gold">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header"><div class="school-logo">🏆</div><div class="school-name">School Name</div></div>
+            <div class="profile-section">
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Gold Standard</div></div>
+            <div class="back-body">
+                <p class="val-terms">Elite terms loaded...</p>
+                <p><strong>Membership:</strong> <span class="val-id">000</span></p>
+                <p><strong>Support:</strong> <span class="val-phone">000</span></p>
+            </div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Elite Signature</div></div>
+            <div class="card-footer">Identity Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Modern Gold</span>
+        <button onclick="exportDesignToPDF('card-gold', 'Modern_Gold')" class="btn btn-download btn-small">Download</button>
+      </div>
+
+      <!-- Theme 7: Berry Punch -->
+      <div class="id-wrapper">
+        <div class="id-card theme-berry" id="card-berry">
+          <div class="id-side id-front">
+            <div class="id-number val-id">REF-000</div>
+            <div class="card-header"><div class="school-logo">🍓</div><div class="school-name">School Name</div></div>
+            <div class="profile-section">
+              <div class="profile-img"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="user-name">Full Name</div><div class="user-role">Role</div>
+            </div>
+            <div class="card-body">
+              <ul class="info-list">
+                <li class="info-item"><span class="info-label">Index Number</span><span class="info-value val-id">0000</span></li>
+                <li class="info-item"><span class="info-label">Contact</span><span class="info-value val-phone">000</span></li>
+                <li class="info-item"><span class="info-label">E-mail</span><span class="info-value val-email-front" style="font-size: 0.7rem;">000</span></li>
+                <li class="info-item"><span class="info-label">Blood Group</span><span class="info-value val-blood">?</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">Valid thru <span class="val-valid">2026</span></div>
+          </div>
+          <div class="id-side id-back">
+            <div class="back-header"><div class="back-title">Identity Details</div></div>
+            <div class="back-body">
+                <p class="val-terms">Berry terms loaded...</p>
+                <p><strong>Email:</strong> <span class="val-email-back">org@mail.com</span></p>
+                <p><strong>Address:</strong> <span class="val-address">Street...</span></p>
+            </div>
+            <div class="sign-section"><div class="sign-img val-sign-img"></div><div class="sign-line"></div><div class="sign-label">Verification Sign</div></div>
+            <div class="card-footer">Identity Card</div>
+          </div>
+        </div>
+        <span class="theme-tag">Berry Punch</span>
+        <button onclick="exportDesignToPDF('card-berry', 'Berry_Punch')" class="btn btn-download btn-small">Download</button>
       </div>
 
     </div>
@@ -310,22 +422,15 @@
         document.querySelectorAll('.val-email-front').forEach(el => el.innerText = data.memberEmail);
         document.querySelectorAll('.val-email-back').forEach(el => el.innerText = data.email);
 
-        if (data.logo) {
-            document.querySelectorAll('.school-logo').forEach(el => { el.innerHTML = `<img src="${data.logo}" alt="Logo">`; });
-        }
-        if (data.photo) {
-            document.querySelectorAll('.profile-img').forEach(el => { el.innerHTML = `<img src="${data.photo}" alt="Photo">`; });
-        }
-        if (data.signature) {
-            document.querySelectorAll('.val-sign-img').forEach(el => { el.innerHTML = `<img src="${data.signature}" alt="Signature">`; });
-        }
+        if (data.logo) { document.querySelectorAll('.school-logo').forEach(el => { el.innerHTML = `<img src="${data.logo}" alt="Logo">`; }); }
+        if (data.photo) { document.querySelectorAll('.profile-img').forEach(el => { el.innerHTML = `<img src="${data.photo}" alt="Photo">`; }); }
+        if (data.signature) { document.querySelectorAll('.val-sign-img').forEach(el => { el.innerHTML = `<img src="${data.signature}" alt="Sign">`; }); }
     }
 
     async function exportDesignToPDF(cardId, filename) {
         const originalCard = document.getElementById(cardId);
         const frontSide = originalCard.querySelector('.id-front');
         const backSide = originalCard.querySelector('.id-back');
-        
         const btn = originalCard.parentElement.querySelector('.btn-download');
         btn.innerText = "Capturing...";
         btn.disabled = true;
@@ -333,14 +438,11 @@
         const { jsPDF } = window.jspdf;
 
         try {
-            // STEP 1: Screenshot FRONT
             const frontCanvas = await html2canvas(frontSide, { scale: 3, useCORS: true });
             const frontImg = frontCanvas.toDataURL('image/jpeg', 1.0);
 
-            // STEP 2: Screenshot BACK
             const backCanvas = await html2canvas(backSide, { 
-                scale: 3, 
-                useCORS: true,
+                scale: 3, useCORS: true,
                 onclone: (doc) => {
                     const cb = doc.querySelector(`#${cardId} .id-back`);
                     cb.style.transform = 'none';
@@ -349,29 +451,18 @@
             });
             const backImg = backCanvas.toDataURL('image/jpeg', 1.0);
 
-            // STEP 3: Generate PDF using jsPDF (Most reliable)
-            // A4 landscape in points is 841.89 x 595.28
             const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [842, 595] });
+            const cw = 250; const ch = 390; const margin = 40;
 
-            // Card size in PX for scaled result (approx standard ratio)
-            const cw = 250;
-            const ch = 390;
-            const margin = 40;
-
-            // Draw Front Image
             pdf.addImage(frontImg, 'JPEG', margin, margin, cw, ch);
-            
-            // Draw Back Image
             pdf.addImage(backImg, 'JPEG', margin + cw + margin, margin, cw, ch);
-
-            // Save PDF
             pdf.save(`${filename}.pdf`);
 
         } catch (error) {
             console.error("PDF generation failed:", error);
-            alert("Unexpected error. Please check if your browser blocks downloads.");
+            alert("Unexpected error.");
         } finally {
-            btn.innerText = "Download High-Quality PDF";
+            btn.innerText = "Download";
             btn.disabled = false;
         }
     }
