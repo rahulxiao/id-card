@@ -11,10 +11,13 @@
     <style>
         :root {
             --primary: #6366f1;
+            --primary-light: #818cf8;
             --bg: #f8fafc;
             --card: #ffffff;
             --text: #1e293b;
             --input-border: #e2e8f0;
+            --danger: #ef4444;
+            --success: #22c55e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -52,7 +55,7 @@
             border-bottom: 1.5px solid #f1f5f9;
         }
 
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; position: relative; }
 
         label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
 
@@ -68,20 +71,22 @@
             font-family: inherit;
         }
 
-        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+
+        input.invalid { border-color: var(--danger); background: #fff1f2; }
+        .error-msg { font-size: 0.65rem; color: var(--danger); font-weight: 600; margin-top: 4px; display: none; }
+        input.invalid + .error-msg { display: block; }
 
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
         .upload-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
             background: #f8fafc;
             padding: 20px;
             border-radius: 16px;
             border: 1.5px dashed #cbd5e1;
             margin-bottom: 25px;
         }
+        .upload-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
 
         button {
             width: 100%;
@@ -98,6 +103,7 @@
         }
 
         button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -3px rgba(99, 102, 241, 0.4); }
+        button:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
 
         .hint { font-size: 0.65rem; color: #94a3b8; margin-top: 5px; font-weight: 500; text-align: center; }
     </style>
@@ -106,41 +112,47 @@
 
     <div class="form-container">
         <h2>ID Card Generator</h2>
-        <form id="idForm">
+        <form id="idForm" novalidate>
             <!-- Front Side Details -->
             <div class="section-title">Front Side Details</div>
             
             <div class="form-group">
                 <label for="schoolName">School / Organization Name</label>
-                <input type="text" id="schoolName" placeholder="e.g. Green Valley High School" required>
+                <input type="text" id="schoolName" placeholder="e.g. Green Valley High School" required minlength="3">
+                <span class="error-msg">Please enter a valid school name (at least 3 chars).</span>
             </div>
 
             <div class="upload-section">
-                <div class="form-group">
-                    <label for="schoolLogo">School Logo</label>
-                    <input type="file" id="schoolLogo" accept="image/*">
-                    <div class="hint">Logo icon</div>
+                <div class="upload-grid">
+                    <div class="form-group">
+                        <label for="schoolLogo">School Logo</label>
+                        <input type="file" id="schoolLogo" accept="image/*" required>
+                        <div class="hint">Logo icon</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhoto">Profile Photo</label>
+                        <input type="file" id="profilePhoto" accept="image/*" required>
+                        <div class="hint">Student photo</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signature">Signature</label>
+                        <input type="file" id="signature" accept="image/*" required>
+                        <div class="hint">Handwritten sign</div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="profilePhoto">Profile Photo</label>
-                    <input type="file" id="profilePhoto" accept="image/*">
-                    <div class="hint">Student photo</div>
-                </div>
-                <div class="form-group">
-                    <label for="signature">Signature</label>
-                    <input type="file" id="signature" accept="image/*">
-                    <div class="hint">Handwritten sign</div>
-                </div>
+                <div id="file-error" class="error-msg" style="text-align: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 10px;">Please upload all three required images (Logo, Photo, Signature).</div>
             </div>
 
             <div class="row">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" placeholder="Rahul Biswas" required>
+                    <input type="text" id="fullName" placeholder="Rahul Biswas" required minlength="2" maxlength="30">
+                    <span class="error-msg">Enter a valid full name.</span>
                 </div>
                 <div class="form-group">
                     <label for="role">Position / Role</label>
-                    <input type="text" id="role" placeholder="Senior Student" required>
+                    <input type="text" id="role" placeholder="Senior Student" required maxlength="25">
+                    <span class="error-msg">Role is too long or missing.</span>
                 </div>
             </div>
 
@@ -148,6 +160,7 @@
                 <div class="form-group">
                     <label for="indexNumber">ID / Index Number</label>
                     <input type="text" id="indexNumber" placeholder="TCH-2026-0456" required>
+                    <span class="error-msg">ID Number is required.</span>
                 </div>
                 <div class="form-group">
                     <label for="bloodGroup">Blood Group</label>
@@ -162,6 +175,7 @@
                         <option value="AB+">AB+</option>
                         <option value="AB-">AB-</option>
                     </select>
+                    <span class="error-msg">Select a blood group.</span>
                 </div>
             </div>
 
@@ -169,10 +183,12 @@
                 <div class="form-group">
                     <label for="memberEmail">Member E-mail</label>
                     <input type="email" id="memberEmail" placeholder="rahul@example.com" required>
+                    <span class="error-msg">Enter a valid email address.</span>
                 </div>
                 <div class="form-group">
                     <label for="frontFooter">Front Side Footer Text</label>
-                    <input type="text" id="frontFooter" placeholder="Valid thru December 2026" value="Valid thru December 2026">
+                    <input type="text" id="frontFooter" placeholder="Valid thru December 2026" value="Valid thru December 2026" required>
+                    <span class="error-msg">Front footer is required.</span>
                 </div>
             </div>
 
@@ -192,64 +208,115 @@
             <div class="row">
                 <div class="form-group">
                     <label for="phone">Contact Number</label>
-                    <input type="tel" id="phone" placeholder="+880 1712-345678" required>
+                    <input type="tel" id="phone" placeholder="+880 1712-345678" required pattern="[+]?[0-9\s-]{8,}" >
+                    <span class="error-msg">Enter a valid phone number.</span>
                 </div>
                 <div class="form-group">
                     <label for="email">Organization Email</label>
                     <input type="email" id="email" placeholder="info@school.edu">
+                    <span class="error-msg">Enter a valid email address.</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="backFooter">Back Side Footer Text</label>
-                <input type="text" id="backFooter" placeholder="Identity Card" value="Identity Card">
+                <input type="text" id="backFooter" placeholder="Identity Card" value="Identity Card" required>
+                <span class="error-msg">Back footer is required.</span>
             </div>
 
-            <button type="submit">Generate Professional ID</button>
+            <button type="submit" id="submitBtn">Generate Professional ID</button>
         </form>
     </div>
 
     <script>
         const form = document.getElementById('idForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        const validateField = (input) => {
+            if (input.checkValidity()) {
+                input.classList.remove('invalid');
+                return true;
+            } else {
+                input.classList.add('invalid');
+                return false;
+            }
+        };
+
+        // Real-time validation
+        form.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('input', () => validateField(field));
+            field.addEventListener('blur', () => validateField(field));
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const logoFile = document.getElementById('schoolLogo').files[0];
-            const photoFile = document.getElementById('profilePhoto').files[0];
-            const signFile = document.getElementById('signature').files[0];
-            
-            let logoUrl = '';
-            let photoUrl = '';
-            let signUrl = '';
+            // Validate all text/select fields
+            let isFormValid = true;
+            form.querySelectorAll('input:not([type="file"]), select, textarea').forEach(field => {
+                if (!validateField(field)) isFormValid = false;
+            });
 
-            if (logoFile) logoUrl = await toBase64(logoFile);
-            if (photoFile) photoUrl = await toBase64(photoFile);
-            if (signFile) signUrl = await toBase64(signFile);
+            // Validate files specifically
+            const logoInput = document.getElementById('schoolLogo');
+            const photoInput = document.getElementById('profilePhoto');
+            const signInput = document.getElementById('signature');
+            const fileError = document.getElementById('file-error');
 
-            const data = {
-                // Front
-                schoolName: document.getElementById('schoolName').value,
-                fullName: document.getElementById('fullName').value,
-                role: document.getElementById('role').value,
-                indexNumber: document.getElementById('indexNumber').value,
-                bloodGroup: document.getElementById('bloodGroup').value,
-                memberEmail: document.getElementById('memberEmail').value,
-                frontFooter: document.getElementById('frontFooter').value || "Valid thru December 2026",
-                logo: logoUrl,
-                photo: photoUrl,
-                
-                // Back
-                signature: signUrl,
-                terms: document.getElementById('terms').value || "This card represents official membership and must be returned if found.",
-                address: document.getElementById('address').value || "123 School Road, Dhaka, Bangladesh",
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value || "info@school.edu",
-                backFooter: document.getElementById('backFooter').value || "Identity Card"
-            };
+            if (!logoInput.files[0] || !photoInput.files[0] || !signInput.files[0]) {
+                fileError.style.display = 'block';
+                isFormValid = false;
+            } else {
+                fileError.style.display = 'none';
+            }
 
-            localStorage.setItem('idCardData', JSON.stringify(data));
-            window.location.href = 'idcard.html';
+            if (!isFormValid) {
+                submitBtn.innerText = "Please Fix Errors Below";
+                submitBtn.style.background = "#ef4444";
+                setTimeout(() => {
+                    submitBtn.innerText = "Generate Professional ID";
+                    submitBtn.style.background = "#6366f1";
+                }, 2000);
+                return;
+            }
+
+            submitBtn.innerText = "Processing Assets...";
+            submitBtn.disabled = true;
+
+            try {
+                const logoUrl = await toBase64(logoInput.files[0]);
+                const photoUrl = await toBase64(photoInput.files[0]);
+                const signUrl = await toBase64(signInput.files[0]);
+
+                const data = {
+                    // Front
+                    schoolName: document.getElementById('schoolName').value,
+                    fullName: document.getElementById('fullName').value,
+                    role: document.getElementById('role').value,
+                    indexNumber: document.getElementById('indexNumber').value,
+                    bloodGroup: document.getElementById('bloodGroup').value,
+                    memberEmail: document.getElementById('memberEmail').value,
+                    frontFooter: document.getElementById('frontFooter').value,
+                    logo: logoUrl,
+                    photo: photoUrl,
+                    
+                    // Back
+                    signature: signUrl,
+                    terms: document.getElementById('terms').value || "This card represents official membership and must be returned if found.",
+                    address: document.getElementById('address').value || "123 School Road, Dhaka, Bangladesh",
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value || "info@school.edu",
+                    backFooter: document.getElementById('backFooter').value
+                };
+
+                localStorage.setItem('idCardData', JSON.stringify(data));
+                window.location.href = 'idcard.html';
+
+            } catch (err) {
+                alert("Error processing images. Try smaller file sizes.");
+                submitBtn.innerText = "Generate Professional ID";
+                submitBtn.disabled = false;
+            }
         });
 
         const toBase64 = file => new Promise((resolve, reject) => {
